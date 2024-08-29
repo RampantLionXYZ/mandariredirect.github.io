@@ -1,0 +1,25 @@
+document.addEventListener("DOMContentLoaded", function() {
+    // Function to detect if the device is iOS
+    function isIOS() {
+        return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    }
+
+    // Function to detect if the device is Android
+    function isAndroid() {
+        return /Android/.test(navigator.userAgent);
+    }
+
+    // URLs to redirect to based on the device type
+    const iosAppUrl = "bizx://?urlType=deeplink&deeplinkType=toDos";
+    const androidAppUrl = "bizx://?urlType=deeplink&deeplinkType=toDos";
+    const httpsUrl = "https://hcm10preview.sapsf.com";
+
+    // Redirect based on the device type
+    if (isIOS()) {
+        window.location.href = iosAppUrl;
+    } else if (isAndroid()) {
+        window.location.href = androidAppUrl;
+    } else {
+        window.location.href = httpsUrl;
+    }
+});
