@@ -1,25 +1,29 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Function to detect if the device is iOS
-    function isIOS() {
-        return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Redirect</title>
+    <script>
+        function redirectToAppOrWeb() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-    // Function to detect if the device is Android
-    function isAndroid() {
-        return /Android/.test(navigator.userAgent);
-    }
-
-    // URLs to redirect to based on the device type
-    const iosAppUrl = "bizx://?urlType=deeplink&deeplinkType=toDos";
-    const androidAppUrl = "bizx://?urlType=deeplink&deeplinkType=toDos";
-    const httpsUrl = "https://hcm10preview.sapsf.com";
-
-    // Redirect based on the device type
-    if (isIOS()) {
-        window.location.href = iosAppUrl;
-    } else if (isAndroid()) {
-        window.location.href = androidAppUrl;
-    } else {
-        window.location.href = httpsUrl;
-    }
-});
+            // Detect iOS
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                window.location.href = "bizx://?urlType=deeplink&deeplinkType=toDos";
+            }
+            // Detect Android
+            else if (/android/i.test(userAgent)) {
+                window.location.href = "bizx://?urlType=deeplink&deeplinkType=toDos";
+            }
+            // Redirect to web page for other devices
+            else {
+                window.location.href = "https://hcm10preview.sapsf.com";
+            }
+        }
+    </script>
+</head>
+<body onload="redirectToAppOrWeb()">
+    <h1>Redirecting...</h1>
+</body>
+</html>
